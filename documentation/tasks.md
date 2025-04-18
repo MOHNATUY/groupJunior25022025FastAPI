@@ -21,7 +21,7 @@ def create_docs():
 [ ] create site
 
 ## Tables
-| content   | another column | add+        |      Notes      |
-|:----------|:--------------:|-------------|:---------------:|
-| my data 1 |    value 1     | more data 1 | nothing special |
-| my data 1 |    value 1     | more data 1 | nothing special |
+| content    | another column | add+        |      Notes      |
+|:-----------|:--------------:|-------------|:---------------:|
+| my data 1  |    value 1     | more data 1 | nothing special |
+| my data 1  |    value 1     | more data 1 | nothing special |
