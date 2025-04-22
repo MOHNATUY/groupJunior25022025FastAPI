@@ -8,6 +8,7 @@ services:
     ports:
       - "8100:8011"
     volumes:
+
       - ./documentation:/docs:ro
 
   local_database:
@@ -31,3 +32,6 @@ networks:
 volumes:
   postgres_datastorage:
     external: false
+=======
+      - ./documentation:/docs:ro
+
