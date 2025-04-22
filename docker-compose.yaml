@@ -1,4 +1,4 @@
-version: "3.8"
+ersion: "3.8"
 
 services:
   documentation:
@@ -10,3 +10,30 @@ services:
       - "8100:8011"
     volumes:
       - ./documentation:/docs:ro
+
+  local_database:
+    image: postgres:16-alpine
+    container_name: local_database
+    hostname: local_database
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "6655:${POSTGRES_PORT}"
+    volumes:
+      - postgres_datastorage:/var/lib/postgresgl/data
+    networks:
+      - main_network
+
+  beckend_api:
+    build:
+      dockerfile: Dockerfile
+      context: ./beckend_api
+
+networks:
+  main_network:
+    driver: bridge
+
+volumes:
+  postgres_datastorage:
+    external: false
