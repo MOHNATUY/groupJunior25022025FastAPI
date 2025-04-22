@@ -34,7 +34,7 @@ jobs:
           poetry init -n
           if ! grep -q 'package-mode' pyproject.toml; then 
               echo '[tool.poetry]' >> pyproject.toml
-          echo 'pacgae-mode = false' >> pyproject.toml
+          echo 'package-mode = false' >> pyproject.toml
           fi
           
           poetry install
