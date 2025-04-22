@@ -1,12 +1,9 @@
 from fastapi import FastAPI
 
 
-app = FastAPI(
-    root_path='/api',
-    root_path_in_servers=True
-)
+app = FastAPI(root_path="/api", root_path_in_servers=True)
 
 
-@app.get('/')
+@app.get("/")
 async def index():
-    return{'status': 200}
+    return {"status": 200}
