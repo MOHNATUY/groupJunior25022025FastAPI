@@ -25,12 +25,18 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
+
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
         run: |
           poetry init -n
+          if ! grep -q 'package-mode' pyproject.toml; then 
+              echo '[tool.poetry]' >> pyproject.toml
+          echo 'pacgae-mode = false' >> pyproject.toml
+          fi
+          
           poetry install
           poetry add black
           poetry add isort
