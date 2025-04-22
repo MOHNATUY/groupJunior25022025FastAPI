@@ -1,4 +1,5 @@
-ersion: "3.8"
+
+version: "3.8"
 
 services:
   documentation:
@@ -20,10 +21,12 @@ services:
       - .env
     ports:
       - "6655:${POSTGRES_PORT}"
+      - "6655:5432"
     volumes:
       - postgres_datastorage:/var/lib/postgresgl/data
     networks:
       - main_network
+
 
   beckend_api:
     build:
@@ -50,3 +53,5 @@ networks:
 volumes:
   postgres_datastorage:
     external: false
+      - ./documentation:/docs:ro
+
