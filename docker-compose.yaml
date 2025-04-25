@@ -10,7 +10,9 @@ services:
     ports:
       - "8100:8011"
     volumes:
-      - ./documentation:/docs:ro
+      1-docs
+
+
 
   local_database:
     image: postgres:16-alpine
