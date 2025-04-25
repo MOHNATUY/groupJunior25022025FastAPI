@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   documentation:
     image: squidfunk/mkdocs-material:latest
@@ -10,7 +9,6 @@ services:
       - "8100:8011"
     volumes:
       - ./documentation:/docs:ro
-
   local_database:
     image: postgres:16-alpine
     container_name: local_database
@@ -24,7 +22,6 @@ services:
       - postgres_datastorage:/var/lib/postgresgl/data
     networks:
       - main_network
-
   backend_api:
     build:
       dockerfile: Dockerfile
@@ -34,6 +31,8 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - ./backend_api/app:/app
     ports:
       - "9999:9999"
     command: |
@@ -42,11 +41,9 @@ services:
       "
     networks:
       - main_network
-
 networks:
   main_network:
     driver: bridge
-
 volumes:
   postgres_datastorage:
     external: false
