@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from app.applications.users.router import router_users
+
+from applications.users.router import router_users
+
 
 def get_application() -> FastAPI:
     app = FastAPI(root_path="/api", root_path_in_servers=True)
