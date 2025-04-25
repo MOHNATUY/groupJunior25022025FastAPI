@@ -1,3 +1,4 @@
+
 version: "3.8"
 
 services:
@@ -9,4 +10,50 @@ services:
     ports:
       - "8100:8011"
     volumes:
+      1-docs
+
+
+
+  local_database:
+    image: postgres:16-alpine
+    container_name: local_database
+    hostname: local_database
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "6655:${POSTGRES_PORT}"
+      - "6655:5432"
+    volumes:
+      - postgres_datastorage:/var/lib/postgresgl/data
+    networks:
+      - main_network
+
+
+  beckend_api:
+    build:
+      dockerfile: Dockerfile
+      context: ./beckend_api
+    container_name: backend_api
+    hostname: backend_api
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "9999:9999"
+    command:
+      sh -c "
+      uvicorn main:app --port=9999 --host=0.0.0.0 --reload
+      "
+    networks:
+      - main_network
+
+networks:
+  main_network:
+    driver: bridge
+
+volumes:
+  postgres_datastorage:
+    external: false
       - ./documentation:/docs:ro
+
