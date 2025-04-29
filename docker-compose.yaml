@@ -16,6 +16,7 @@ services:
     restart: always
     env_file:
       - .env
+
     ports:
       - "6655:${POSTGRES_PORT}"
     volumes:
