@@ -30,6 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install black isort flake8
           poetry init -n
           if ! grep -q 'package-mode' pyproject.toml; then
              echo '[tool.poetry]' >> pyproject.toml
