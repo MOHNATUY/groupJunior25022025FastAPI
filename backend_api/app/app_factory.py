@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from applications.users.router import router_users
+from app.applications.users.router import router_users
 
 
 def get_application() -> FastAPI:
