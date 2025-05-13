@@ -10,8 +10,7 @@ from database.session_dependencies import get_async_session
 router_users = APIRouter()
 
 async def create_user_in_db(email, name, password, session: AsyncSession):
-    enc = PasswordEncrypt()
-    hashed_password = enc.get_password_hash(password)
+    hashed_password = await PasswordEncrypt.get_password_hash(password)
     new_user = User(email=email, hashed_password=PasswordEncrypt.get_password_hash(password), name=name)
     session.add(new_user)
     await session.commit()
