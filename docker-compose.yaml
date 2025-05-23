@@ -8,6 +8,7 @@ services:
       - "8100:8011"
     volumes:
       - ./documentation:/docs:ro
+
   local_database:
     image: postgres:16-alpine
     container_name: local_database
@@ -15,13 +16,13 @@ services:
     restart: always
     env_file:
       - .env
-
     ports:
       - "6655:${POSTGRES_PORT}"
     volumes:
       - postgres_datastorage:/var/lib/postgresgl/data
     networks:
       - main_network
+
   backend_api:
     build:
       dockerfile: Dockerfile
@@ -43,9 +44,9 @@ services:
     networks:
       - main_network
 
-  nginx:
+  nginx_2:
     image: nginx:alpine
-    container_name: nginx
+    container_name: nginx_2
     restart: always
     ports:
       - "80:80"
