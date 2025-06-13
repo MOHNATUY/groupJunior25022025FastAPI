@@ -17,11 +17,11 @@ class RabbitMQBroker:
             ssl_options=pika.SSLOptions(context=ssl_context)
         )
 
-    async def get_connection(self) -> pika.BlockingConnection:
+    def get_connection(self) -> pika.BlockingConnection:
         return pika.BlockingConnection(parameters=self.connection_params)
 
-    async def send_message(self, message: dict, queue_name: str):
-        with await self.get_connection() as connection:
+    def send_message(self, message: dict, queue_name: str):
+        with self.get_connection() as connection:
             with connection.channel() as channel:
                 channel.queue_declare(queue=queue_name)
 
@@ -32,6 +32,22 @@ class RabbitMQBroker:
                     routing_key=queue_name,
                     body=message_json_str.encode()
                 )
+
+    # async def get_connection(self) -> pika.BlockingConnection:
+    #     return pika.BlockingConnection(parameters=self.connection_params)
+    #
+    # async def send_message(self, message: dict, queue_name: str):
+    #     with await self.get_connection() as connection:
+    #         with connection.channel() as channel:
+    #             channel.queue_declare(queue=queue_name)
+    #
+    #             message_json_str = json.dumps(message)
+    #
+    #             channel.basic_publish(
+    #                 exchange='',
+    #                 routing_key=queue_name,
+    #                 body=message_json_str.encode()
+    #             )
 
 
 rabbitmq_broker = RabbitMQBroker()
