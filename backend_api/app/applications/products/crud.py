@@ -37,16 +37,13 @@ async def get_products_data(params: SearchParamsSchema, session: AsyncSession):
     count_query = select(func.count()).select_from(Product)
 
     order_direction = asc if params.order_direction == SortEnum.ASC else desc
-
     if params.q:
         if params.use_sharp_q_filter:
-
             cleaned_query = params.q.strip().lower()
             search_fields = [Product.title, Product.description]
-            search_condition = or_(*[func.lower(field) == cleaned_query for field in search_fields])
-
-            query = query.filter(search_condition)
-            count_query = count_query.filter(search_condition)
+            search_condition = [func.lower(search_field) == cleaned_query for search_field in search_fields]
+            query = query.filter(or_(*search_condition))
+            count_query = count_query.filter(or_(*search_condition))
 
 
     sort_field = Product.price if params.sort_by == SortByEnum.PRICE else Product.id
