@@ -16,7 +16,7 @@ async def index(request: Request, user: dict = Depends(get_current_user_with_tok
 
 
 
-    context = {'request': request, 'products': products}
+    context = {'request': request, 'products': products['items']}
     print(products, 55555555555555555)
     if user.get('name'):
         context['user'] = user
